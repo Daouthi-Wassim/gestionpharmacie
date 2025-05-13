@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Nouveau Médicament</title>
+  <style>
+    .form-container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    select[multiple] {
+      height: 120px;
+    }
+
+    .preview-image {
+      max-width: 200px;
+      margin: 15px 0;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="form-container">
+    <h1 style="text-align: center; color: #3498db">➕ Ajouter un Médicament</h1>
+
+    <form th:action="@{/medicament/add}" th:object="${medicament}" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label>Nom du Médicament</label>
+        <input type="text" th:field="*{nom}" required>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea th:field="*{description}" rows="4"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Prix (TND)</label>
+        <input type="number" step="0.01" th:field="*{prix}" required>
+      </div>
+
+      <div class="form-group">
+        <label>Catégorie</label>
+        <select th:field="*{categorie}">
+          <option th:each="cat : ${categories}"
+                  th:value="${cat.id}"
+                  th:text="${cat.nom}"></option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Fournisseurs</label>
+        <select th:field="*{fournisseurs}" multiple>
+          <option th:each="four : ${fournisseurs}"
+                  th:value="${four.id}"
+                  th:text="${four.nom}"></option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Image du médicament</label>
+        <input type="file" name="imageFile" id="imageInput" accept="image/*">
+        <img id="preview" class="preview-image" alt="Aperçu image">
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width: 100%">Enregistrer</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Preview image avant upload
+  document.getElementById('imageInput').addEventListener('change', function(e) {
+    const preview = document.getElementById('preview');
+    const file = e.target.files[0];
+    if(file) {
+      preview.style.display = 'block';
+      preview.src = URL.createObjectURL(file);
+    }
+  });
+</script>
+</body>
+</html>

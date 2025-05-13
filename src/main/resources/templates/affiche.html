@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestion Pharmacie</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f5f7fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .product-info {
+            margin-top: 15px;
+        }
+
+        .product-price {
+            color: #2ecc71;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1> Inventaire des Médicaments</h1>
+        <a href="/medicament/new" class="btn btn-primary">+ Nouveau Médicament</a>
+        <a href="/categorie/new" class="btn btn-primary" style="margin-left: 10px">+ Catégorie</a>
+        <a href="/fournisseur/new" class="btn btn-primary" style="margin-left: 10px">+ Fournisseur</a>
+    </div>
+
+    <div class="product-grid">
+        <div class="product-card" th:each="med : ${medicaments}">
+            <img th:src="@{'/uploads/' + ${med.imagePath}}"
+                 class="product-image"
+                 alt="Image médicament"
+                 onerror="this.src='https://via.placeholder.com/300x200?text=Image+Non+Disponible'">
+            <div class="product-info">
+                <h3 th:text="${med.nom}"></h3>
+                <p th:text="'description :'+${med.description}"></p>
+                <div th:each="cat :${med.categorie}">
+                <p th:text="'famille :'+${med.categorie.nom}"></p>
+                </div>
+                <div th:each="f : ${med.fournisseurs}">
+                <p th:text="'fournisseurs: '+${f.nom}"></p>
+                </div>
+                <p class="product-price" th:text="${med.prix} + ' TND'"></p>
+                <div>
+                    <a th:href="@{'/medicament/edit/' + ${med.id}}" class="btn btn-primary">Modifier</a>
+                    <a th:href="@{'/medicament/delete/' + ${med.id}}" class="btn btn-primary"
+                       style="background: #e74c3c; margin-left: 10px">Supprimer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

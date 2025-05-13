@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Modifier Médicament</title>
+  <style>
+    .form-container { max-width: 600px; margin: 40px auto; padding: 30px; background: white; border-radius: 10px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; font-weight: 600; color: #2c3e50; }
+    input, textarea, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; }
+    select[multiple] { height: 120px; }
+    .preview-image { max-width: 200px; margin: 15px 0; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="form-container">
+    <h1>Modifier Médicament</h1>
+
+    <form th:action="@{/medicament/update}" th:object="${medicament}" method="post" enctype="multipart/form-data">
+      <input type="hidden" th:field="*{id}">
+
+      <div class="form-group">
+        <label>Nom</label>
+        <input type="text" th:field="*{nom}" required>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea th:field="*{description}" rows="4" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Prix (TND)</label>
+        <input type="number" step="0.01" th:field="*{prix}" required>
+      </div>
+
+      <div class="form-group">
+        <label>Catégorie</label>
+        <select th:field="*{categorie.id}">
+          <option th:each="cat : ${categories}"
+                  th:value="${cat.id}"
+                  th:text="${cat.nom}"
+                  th:selected="${cat.id == medicament.categorie.id}"></option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Fournisseurs</label>
+        <select th:field="*{fournisseurs}" multiple>
+          <option th:each="four : ${fournisseurs}"
+                  th:value="${four.id}"
+                  th:text="${four.nom}"
+                  th:selected="${#lists.contains(medicament.fournisseurs, four)}"></option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Image actuelle</label>
+        <img th:src="@{'/uploads/' + ${medicament.imagePath}}"
+             class="preview-image"
+             onerror="this.src='https://via.placeholder.com/200'">
+      </div>
+
+      <div class="form-group">
+        <label>Nouvelle image (optionnel)</label>
+        <input type="file" name="imageFile">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Mettre à jour</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

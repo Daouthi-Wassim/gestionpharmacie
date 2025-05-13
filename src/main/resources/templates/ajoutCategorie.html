@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Nouvelle Catégorie</title>
+  <style>
+    .form-container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    select[multiple] {
+      height: 120px;
+    }
+
+    .preview-image {
+      max-width: 200px;
+      margin: 15px 0;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="form-container">
+    <h1>➕ Nouvelle Catégorie</h1>
+    <form th:action="@{/categorie/add}" th:object="${categorie}" method="post">
+      <div class="form-group">
+        <label>Nom de la catégorie</label>
+        <input type="text" th:field="*{nom}" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>
