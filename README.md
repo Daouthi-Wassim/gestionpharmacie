@@ -1,3 +1,4 @@
+
 # Gestion Pharmacie - Application de Gestion de Pharmacie
 
 Une application web Spring Boot pour gérer les médicaments, catégories et fournisseurs d'une pharmacie.
@@ -40,3 +41,7 @@ Une application web Spring Boot pour gérer les médicaments, catégories et fou
    - MySQL 8+
    - Maven 3.9+
 
+<img width="887" height="700" alt="Capture d’écran 2025-08-13 070906" src="https://github.com/user-attachments/assets/a81da4b9-b71e-4e61-9c1b-a1b49fc77a7b" />
+<img width="901" height="945" alt="Capture d’écran 2025-08-13 075542" src="https://github.com/user-attachments/assets/3a7be205-b7b3-4d62-ae45-6c1967625509" />
+<img width="876" height="930" alt="Capture d’écran 2025-08-13 075622" src="https://github.com/user-attachments/assets/9cdc63ad-85f0-46ff-a95b-1899b19f8faf" />
+<img width="980" height="898" alt="Capture d'écran 2025-05-12 175125" src="https://github.com/user-attachments/assets/59a26852-5875-44d4-928e-b39c2453b5a4" />
